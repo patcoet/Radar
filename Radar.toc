@@ -1,0 +1,5 @@
+## Interface: 70300
+## Title: Radar
+## Notes: Minimap replacement
+## Version: 70300.1
+Radar.lua
