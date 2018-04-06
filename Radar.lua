@@ -3,11 +3,15 @@ local mm = Minimap
 local f = CreateFrame("Frame")
 
 local update = function()
-	local mods = IsShiftKeyDown() and IsControlKeyDown()
-	
-	mm:EnableMouse(mods)
-	mm:EnableMouseWheel(mods)
-	-- if mods then mm:Show() else mm:Hide() end
+	if IsShiftKeyDown() and IsControlKeyDown() then
+		mm:EnableMouse(true)
+		mm:EnableMouseWheel(true)
+		-- mm:Show()
+	else
+		mm:EnableMouse(false)
+		mm:EnableMouseWheel(false)
+		-- mm:Hide()
+	end
 end
 
 local init = function()
@@ -15,12 +19,11 @@ local init = function()
 	  local child = select(i, mm:GetChildren())
 	  if child then
 		  local from, anchor, to, x, y = child:GetPoint()
-		  child:SetPoint(from, Minimap:GetParent(), to, x, y)
-		  child:SetParent(Minimap:GetParent())
-		  child:Hide()
+		  child:SetParent(MinimapCluster)
 		end
 	end
-	mm:GetParent():Hide()
+	MinimapCluster:Hide()
+	MinimapBackdrop:Hide()
 
 	mm:SetParent(UIParent)
 	mm:SetPoint("CENTER", UIParent, "CENTER", 0, -40)
@@ -28,7 +31,6 @@ local init = function()
 	mm:SetSize(350, 350)
 	mm:EnableMouse(false)
 	mm:EnableMouseWheel(false)
-
 
 	mm:SetArchBlobRingScalar(0)
 	mm:SetArchBlobRingAlpha(0)
